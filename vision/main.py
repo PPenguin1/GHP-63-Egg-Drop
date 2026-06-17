@@ -1,11 +1,13 @@
 import cv2
 import keyboard
+import numpy as np
+#import matplotlib.pyplot as plt
 
 
 feed = cv2.VideoCapture(0)
 
 hueMin = 0
-hueMax = 179
+hueMax = 255
 saturationMin = 0
 saturationMax = 255
 valueMin = 0
@@ -26,3 +28,4 @@ while True:
     cv2.imshow("Mask", mask)
     cv2.imshow("Frame", frame)
 
+    cv2.waitKey(5);
