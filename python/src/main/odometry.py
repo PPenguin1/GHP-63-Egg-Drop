@@ -6,6 +6,8 @@ accelerometer = mpu6050(0x68)
 velocity = 0
 position = 0
 
+target_decceleration = 0
+
 target_position = 10
 
 def get_acceleration():
@@ -19,6 +21,12 @@ def get_error():
 
 def is_at_target():
     return abs(get_error()) < 0.1
+
+def get_position():
+    return position
+
+def get_velocity():
+    return velocity
 
 while True:
     accel_data = get_acceleration()
