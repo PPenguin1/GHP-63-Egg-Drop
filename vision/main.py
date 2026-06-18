@@ -4,7 +4,7 @@ import matplotlib.widgets as widgets
 import matplotlib.pyplot as plt
 
 
-feed = cv2.VideoCapture(0)
+feed = cv2.VideoCapture(1)
 
 # hueMin = 0
 # hueMax = 255

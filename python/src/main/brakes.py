@@ -21,7 +21,7 @@ def set_speed(speed):
 
 while True:
     if odometry.get_error < 3:
-        target_decceleration = odometry.get_velocity() / (odometry.get_error() / odometry.get_velocity())
+        target_decceleration = odometry.get_velocity() / ((odometry.get_error() - 1) / odometry.get_velocity())
         pid = pidcontroller(0, 0, 0, target_decceleration)
         set_position(pid.update(odometry.get_acceleration(), 0.01))
         sleep(0.01)

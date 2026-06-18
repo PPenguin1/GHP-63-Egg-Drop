@@ -30,6 +30,7 @@ def get_velocity():
 
 while True:
     accel_data = get_acceleration()
-    velocity += accel_data['x'] * 0.01  # Assuming a time step of 0.01 seconds
-    position += velocity * 0.01  # Update position based on velocity
+    velocity += accel_data['x'] * 0.01
+    position += velocity * 0.01 
+    print(accelerometer.get_accel_data())
     sleep(0.01)
