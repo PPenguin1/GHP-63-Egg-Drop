@@ -3,7 +3,7 @@ from time import sleep
 
 velocity = 0
 position = 0
-accel = mpu6050.mpu6050(0x68)
+accel = mpu6050(0x68)
 
 target_decceleration = 0
 

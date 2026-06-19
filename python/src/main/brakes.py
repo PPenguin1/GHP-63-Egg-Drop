@@ -7,7 +7,7 @@ from gpiostepper import Stepper
 
 target_decceleration = 0
 
-motor = Stepper([0, 0, 0, 0],  64)
+motor = Stepper([2, 3, 4, 17],  64)
 
 
 def set_position(position):

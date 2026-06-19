@@ -1,9 +1,10 @@
 import gpiozero
 import odometry
 
-motor = gpiozero.Motor(0, 0)
+motor = gpiozero.Servo(18)
 
 while True:
     if odometry.is_at_target():
-        motor.forward()
-
+        motor.max()
+    else:
+        motor.min()

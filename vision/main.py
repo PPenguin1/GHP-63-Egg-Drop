@@ -46,4 +46,7 @@ while True:
     cv2.imshow("Frame", frame)
     cv2.imshow("Frame HSV", frameHSV)
 
+    if(mask.sum() > 0):
+        print("Object Detected")
+
     cv2.waitKey(5);
