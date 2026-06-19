@@ -6,6 +6,11 @@ import matplotlib.pyplot as plt
 
 feed = cv2.VideoCapture(1)
 
+imageSizeX = 640
+imageSizeY = 480
+
+# feed = cv2.resize(feed, (imageSizeX, imageSizeY))
+
 # hueMin = 0
 # hueMax = 255
 # saturationMin = 0
@@ -35,6 +40,8 @@ while True:
 
     _, frame = feed.read();
 
+    frame = cv2.resize(frame, (imageSizeX, imageSizeY))
+
     if not _:
         print("Error: Could not read frame from camera feed.")
         continue;
@@ -42,11 +49,31 @@ while True:
     frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     # mask = cv2.inRange(frameHSV, (hueMin, saturationMin, valueMin), (hueMax, saturationMax, valueMax))
     mask = cv2.inRange(frameHSV, (hueMin.val, saturationMin.val, valueMin.val), (hueMax.val, saturationMax.val, valueMax.val))
+
+    contr = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    objectCntsAreas = []
+
+    for i in contr[0]:
+        M = cv2.moments(i)
+
+        objectCntsAreas.append(M["m00"])
+
+    if len(objectCntsAreas) > 0:
+        # Find the largest (and theoretically closest) object
+        maxValue = max(objectCntsAreas)
+
+        maxObjectCntsIndex = objectCntsAreas.index(maxValue)
+
+        # Find pixel position of object
+        M = cv2.moments(contr[0][maxObjectCntsIndex])
+
+        cX = int((M["m10"] / (M["m00"] + 0.001))) - (imageSizeX / 2)
+        cY = int((M["m01"] / (M["m00"] + 0.001))) - (imageSizeY / 2)
+        print("Object Position: " + str(cX) + ", " + str(cY))
+
+
     cv2.imshow("Mask", mask)
     cv2.imshow("Frame", frame)
     cv2.imshow("Frame HSV", frameHSV)
-
-    if(mask.sum() > 0):
-        print("Object Detected")
-
     cv2.waitKey(5);

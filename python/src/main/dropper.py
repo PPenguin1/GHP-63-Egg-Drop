@@ -1,10 +1,11 @@
 import gpiozero
 import odometry
+import main
 
 motor = gpiozero.Servo(18)
 
 while True:
-    if odometry.is_at_target():
+    if abs(main.cX) < 10 and abs(main.cY) < 10:
         motor.max()
     else:
         motor.min()
