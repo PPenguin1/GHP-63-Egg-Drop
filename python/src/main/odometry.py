@@ -1,9 +1,12 @@
 from mpu6050 import mpu6050 
+import io
 from time import sleep
 
 velocity = 0
 position = 0
 accel = mpu6050(0x68)
+
+file = io.open("accel_data.txt", "w")
 
 target_decceleration = 0
 
@@ -31,5 +34,6 @@ while True:
     accel_data = get_acceleration()
     velocity += accel_data['x'] * 0.01
     position += velocity * 0.01 
-    print(accel.get_accel_data())
+    file.write(f"{accel_data['x']}, {velocity}, {position}\n")
     sleep(0.01)
+
