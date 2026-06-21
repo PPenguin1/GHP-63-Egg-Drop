@@ -10,7 +10,7 @@ file = io.open("accel_data.txt", "w")
 
 target_decceleration = 0
 
-target_position = 10
+target_position = 9
 
 def get_acceleration():
     return accel.get_accel_data()
